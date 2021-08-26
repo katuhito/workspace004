@@ -95,6 +95,29 @@ order_data = pd.merge(order_data, m_area, on='area_cd', how='left')
 order_data
 
 
+#takeout_flagの名称を設定
+order_data.loc[order_data['takeout_flag'] == 0, 'takeout_name'] = 'デリバリー'
+order_data.loc[order_data['takeout_flag'] == 1, 'takeout_name'] = 'お持ち帰り'
+order_data
+
+#statusの名称を設定
+order_data.loc[order_data['status'] == 0, 'status_name'] = '受付'
+order_data.loc[order_data['status'] == 1, 'status_name'] = 'お支払済'
+order_data.loc[order_data['status'] == 2, 'status_name'] = 'お渡し済'
+order_data.loc[order_data['status'] == 9, 'status_name'] = 'キャンセル'
+order_data
+
+#分析基礎テーブルを出力
+output_dir = os.path.join(current_dir, 'output_data')
+os.makedirs(output_dir, exit_ok=True)
+
+#データフレームの内容をファイルに出力
+output_file = os.path.join(output_dir, 'data/order_data.csv')
+order_data.to_csv(output_file, index=False)
+
+
+
+
 
 
 
